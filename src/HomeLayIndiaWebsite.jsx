@@ -38,7 +38,40 @@ function openWhatsApp(message = "Hi Home Lay India, I am interested in your veri
 function goTop() { window.scrollTo({ top: 0, behavior: "smooth" }); }
 function cx(...a) { return a.filter(Boolean).join(" "); }
 
-function Logo({ light=false }) { return <div className="flex items-center gap-3"><div className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-500 text-slate-950 shadow-lg shadow-amber-500/20"><Home size={22} fill="currentColor" /></div><div><h1 className={cx("text-xl font-black tracking-tight", light ? "text-white" : "text-slate-950")}>HomeLay<span className="text-amber-500">India</span></h1><p className={cx("text-[9px] font-black uppercase tracking-[0.24em]", light ? "text-blue-100" : "text-slate-500")}>Complete Property Solutions</p></div></div>; }
+function Logo({ light = false }) {
+  return (
+    <div className="flex cursor-pointer items-center gap-3">
+
+      <img
+        src="/logo.png"
+        alt="Home Lay India"
+        className="h-15 w-15 rounded-full bg-white p-1 object-contain shadow-lg shadow-amber-500/20 transition-all duration-300 hover:scale-105"
+      />
+
+      <div>
+        <h1
+          className={cx(
+            "text-xl font-black tracking-tight",
+            light ? "text-white" : "text-slate-950"
+          )}
+        >
+          HomeLay
+          <span className="text-amber-500">India</span>
+        </h1>
+
+        <p
+          className={cx(
+            "text-[9px] font-black uppercase tracking-[0.24em]",
+            light ? "text-blue-100" : "text-slate-500"
+          )}
+        >
+          Complete Property Solutions
+        </p>
+      </div>
+
+    </div>
+  );
+}
 function Button({ children, className="", onClick }) { return <button onClick={onClick} className={cx("inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-black transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg active:scale-95", className)}>{children}</button>; }
 function Section({ title, sub, children, id, dark=false }) { return <section id={id} className={cx("px-4 py-14 md:py-16", dark ? "bg-slate-950" : "bg-white")}><div className="mx-auto max-w-7xl"><div className="mx-auto mb-9 max-w-2xl text-center"><span className="mb-3 inline-flex items-center gap-2 rounded-full bg-amber-50 px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-amber-700"><Sparkles size={13} /> HomeLay Curated</span><h2 className={cx("text-2xl font-black tracking-tight md:text-4xl", dark ? "text-white" : "text-slate-950")}>{title}</h2><p className={cx("mt-3 text-sm leading-6", dark ? "text-slate-300" : "text-slate-500")}>{sub}</p></div>{children}</div></section>; }
 function Stat({ value, label }) { return <div className="rounded-xl border border-white/10 bg-white/10 px-3 py-2 backdrop-blur"><b className="text-xl font-black text-white">{value}</b><p className="text-[10px] font-semibold text-blue-100">{label}</p></div>; }
@@ -49,6 +82,8 @@ function PropertyCard({ item, onOpen }) { return <div className="group cursor-po
 function ListingRow({ item, onOpen }) { return <div className="grid overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition hover:shadow-xl md:grid-cols-[270px_1fr]"><div className="relative h-60 md:h-full"><img src={item.image} alt={item.name} className="h-full w-full object-cover" /><span className="absolute left-3 top-3 rounded-full bg-white px-3 py-1 text-[11px] font-black text-slate-700 shadow"><ShieldCheck size={12} className="mr-1 inline text-emerald-600" />{item.tag}</span></div><div className="p-6"><div className="flex justify-between gap-4"><div><h3 className="text-xl font-black text-amber-700">{item.name}</h3><p className="mt-1 flex items-center gap-1 text-sm font-semibold text-slate-500"><MapPin size={14} />{item.location}</p></div><button className="h-10 w-10 rounded-full border text-slate-500 hover:bg-[#f7f1e6]"><Share2 size={16} className="mx-auto" /></button></div><div className="mt-5 grid grid-cols-2 gap-4 rounded-2xl bg-[#f7f1e6] p-4 text-sm md:grid-cols-4"><span><small className="font-black text-slate-400">BHK</small><br /><b>{item.bhk}</b></span><span><small className="font-black text-slate-400">Type</small><br /><b>{item.type}</b></span><span><small className="font-black text-slate-400">Area</small><br /><b>{item.area}</b></span><span><small className="font-black text-slate-400">Possession</small><br /><b>{item.possession}</b></span></div><p className="mt-5 text-2xl font-black text-slate-950">{item.price}</p><div className="mt-4 flex flex-wrap gap-3"><Button onClick={() => alert("Home Lay India will call you soon.")} className="bg-slate-100 text-slate-700 hover:bg-slate-200"><Phone size={15} /> Call Back Request</Button><Button onClick={() => openWhatsApp()} className="bg-emerald-600 text-white hover:bg-emerald-700"><MessageCircle size={15} /> Connect Now</Button><Button onClick={() => onOpen(item)} className="bg-blue-600 text-white hover:bg-blue-700">View Details</Button></div></div></div>; }
 
 export default function HomeLayIndiaWebsite() {
+
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [query, setQuery] = useState("");
   const [cityOpen, setCityOpen] = useState(false);
   const [selected, setSelected] = useState(null);
@@ -64,87 +99,127 @@ export default function HomeLayIndiaWebsite() {
 
   return <div className="min-h-screen bg-gradient-to-b from-[#f8f4ea] via-[#f5efe3] to-[#efe7d7] font-sans text-slate-800">
     <Header query={query} setQuery={setQuery} cityOpen={cityOpen} setCityOpen={setCityOpen} mobile={mobile} setMobile={setMobile} setPage={setPage} />
-    <section className="relative h-[62vh] md:h-[68vh] overflow-hidden bg-slate-950">
-      <img
-        src={heroImage}
-        alt="Bhopal properties"
-        className="absolute inset-0 h-full w-full object-cover object-center opacity-[0.68] transition-all duration-1000 ease-out hover:scale-[1.06]"
-      />
+   <section
+  onMouseMove={(e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(245,158,11,0.25),transparent_35%),linear-gradient(90deg,#1c1917_0%,rgba(41,37,36,0.96)_45%,rgba(41,37,36,0.45)_100%)]" />
-      <div className="absolute -right-20 top-20 h-72 w-72 rounded-full bg-amber-400/20 blur-3xl" />
+    setMouse({
+      x: (e.clientX - rect.left - rect.width / 2) / 35,
+      y: (e.clientY - rect.top - rect.height / 2) / 35,
+    });
+  }}
+  onMouseLeave={() => setMouse({ x: 0, y: 0 })}
+  className="relative h-[80vh] overflow-hidden bg-slate-950"
+>
 
-      <div className="relative mx-auto flex h-full max-w-7xl items-center px-4 pt-12 pb-20">
-        <div className="max-w-3xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-blue-100 backdrop-blur">
-            <BadgeCheck size={11} className="text-emerald-300" />
-            Trusted Bhopal Real Estate
-          </span>
+  {/* Hero Image */}
+  <img
+    src={heroImage}
+    alt="Bhopal properties"
+    style={{
+      transform: `translate(${mouse.x}px,${mouse.y}px) scale(1.08)`
+    }}
+    className="absolute inset-0 h-full w-full object-cover object-center opacity-[0.68] transition-transform duration-300 ease-out"
+  />
 
-          <h2 className="mt-4 text-3xl font-black leading-[1.05] tracking-tight text-white md:text-5xl">
-            Find verified homes in{" "}
-            <span className="bg-gradient-to-r from-amber-300 to-yellow-500 bg-clip-text text-transparent">
-              Bhopal
-            </span>{" "}
-            with confidence.
-          </h2>
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(245,158,11,0.25),transparent_35%),linear-gradient(90deg,#1c1917_0%,rgba(41,37,36,0.96)_45%,rgba(41,37,36,0.45)_100%)]" />
 
-          <p className="mt-3 max-w-lg text-sm leading-7 text-slate-200">
-            Discover apartments, villas, duplex homes and investment-ready
-            properties across Bhopal's top locations with trusted guidance.
-          </p>
+  {/* Blur */}
+  <div
+    style={{
+      transform: `translate(${mouse.x*2}px,${mouse.y*2}px)`
+    }}
+    className="absolute -right-20 top-20 h-72 w-72 rounded-full bg-amber-400/20 blur-3xl transition-all duration-500"
+  />
 
-          <div className="mt-5 max-w-2xl rounded-2xl border border-white/20 bg-white/95 p-3 shadow-2xl shadow-slate-950/30 backdrop-blur">
-            <div className="mb-3 flex flex-wrap gap-2">
-              {["Buy","Rent","Commercial","Plots","PG","Commercial Rent","Co-Working"].map(t => (
-                <button
-                  key={t}
-                  onClick={() => setTab(t)}
-                  className={cx(
-                    "rounded-lg px-3 py-1.5 text-[11px] font-black transition",
-                    tab === t
-                      ? "bg-slate-950 text-white shadow-lg"
-                      : "bg-slate-100 text-slate-600 hover:bg-amber-50 hover:text-amber-700"
-                  )}
-                >
-                  {t}
-                </button>
-              ))}
-            </div>
+  {/* Content */}
+  <div
+    style={{
+      transform: `translate(${-mouse.x*0.5}px,${-mouse.y*0.5}px)`
+    }}
+    className="relative mx-auto flex h-full max-w-7xl items-center px-4 pt-12 pb-20 transition-all duration-300 ease-out"
+  >
 
-            <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-[#f7f1e6] px-3 py-2 focus-within:border-blue-400">
-              <input
-                value={query}
-                onChange={e => setQuery(e.target.value)}
-                onKeyDown={e => {
-                  if (e.key === "Enter") {
-                    setPage("list");
-                    goTop();
-                  }
-                }}
-                placeholder="Search Katara Hills, Salaiya, Kolar Road..."
-                className="w-full bg-transparent text-sm outline-none"
-              />
-              <button
-                onClick={() => {
-                  setPage("list");
-                  goTop();
-                }}
-                className="rounded-lg bg-blue-600 p-2 text-white transition hover:scale-105 hover:bg-blue-700"
-              >
-                <Search size={15} />
-              </button>
-            </div>
-          </div>
+    <div className="max-w-3xl">
 
-          <div className="mt-4 grid max-w-lg grid-cols-3 gap-2">
-            <Stat value="250+" label="Listings" />
-            <Stat value="20+" label="Areas" />
-            <Stat value="4.8★" label="Rating" />
-          </div>
-        </div>
+      <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-blue-100 backdrop-blur">
+        <BadgeCheck size={11} className="text-emerald-300" />
+        Trusted Bhopal Real Estate
+      </span>
+
+      <h2 className="mt-4 text-3xl font-black leading-[1.05] tracking-tight text-white md:text-5xl">
+        Find verified homes in{" "}
+        <span className="bg-gradient-to-r from-amber-300 to-yellow-500 bg-clip-text text-transparent">
+          Bhopal
+        </span>{" "}
+        with confidence.
+      </h2>
+
+      <p className="mt-3 max-w-lg text-sm leading-7 text-slate-200">
+        Discover apartments, villas, duplex homes and investment-ready
+        properties across Bhopal's top locations with trusted guidance.
+      </p>
+
+      {/* Search Box */}
+
+      <div className="mt-6 w-full max-w-4xl rounded-[28px] border border-white/60 bg-white p-5 shadow-[0_25px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+  <div className="mb-4 flex flex-wrap gap-3">
+    {["Buy", "Rent", "Commercial", "Plots", "PG", "Commercial Rent", "Co-Working"].map((t) => (
+      <button
+        key={t}
+        onClick={() => setTab(t)}
+        className={cx(
+          "rounded-xl px-5 py-2 text-xs font-black transition-all duration-300 hover:-translate-y-1",
+          tab === t
+            ? "bg-slate-950 text-white shadow-lg"
+            : "bg-slate-100 text-slate-600 hover:bg-amber-50 hover:text-amber-700"
+        )}
+      >
+        {t}
+      </button>
+    ))}
+  </div>
+
+  <div className="flex items-center gap-4 rounded-2xl border-2 border-slate-200 bg-[#faf6ef] px-5 py-4 shadow-inner">
+    <input
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          setPage("list");
+          goTop();
+        }
+      }}
+      placeholder="Search Katara Hills, Salaiya, Kolar Road..."
+      className="w-full bg-transparent text-sm font-semibold text-slate-700 outline-none placeholder:text-slate-400"
+    />
+
+    <button
+      onClick={() => {
+        setPage("list");
+        goTop();
+      }}
+      className="rounded-xl bg-gradient-to-r from-blue-600 to-indigo-700 px-5 py-3 text-white shadow-lg transition-all duration-300 hover:scale-105"
+    >
+      <Search size={18} />
+    </button>
+  </div>
+</div>
+
+      <div className="mt-4 grid max-w-lg grid-cols-3 gap-2">
+
+        <Stat value="250+" label="Listings" />
+        <Stat value="20+" label="Areas" />
+        <Stat value="4.8★" label="Rating" />
+
       </div>
-    </section>
+
+    </div>
+
+  </div>
+
+</section>
 
     <Section id="projects" title="Popular Residential Projects in Bhopal" sub="Handpicked residential projects with strong connectivity, verified details and quality developer profiles."><div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{projects.map(p => <PropertyCard key={p.id} item={p} onOpen={openDetail} />)}</div></Section>
     <Section id="resale" title="Verified Resale Homes in Bhopal" sub="Move-in-ready flats, duplexes and villas across Salaiya, Misrod, Hoshangabad Road and nearby residential zones."><div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{resale.map(p => <PropertyCard key={p.id} item={p} onOpen={openDetail} />)}</div></Section>
