@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Search, MapPin, Phone, MessageCircle, ChevronRight, Home, Share2, Menu, Grid3X3, List, Building2, UserRound, ShieldCheck, Map, Star, Sparkles, BadgeCheck, IndianRupee, ArrowRight } from "lucide-react";
 
 
-const phone = "917880005859";
+const phone = "916264238985";
 const heroImage = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=90";
 const cities = ["Katara Hills", "Bawadiya Kalan", "Salaiya", "Hoshangabad Road", "Kolar Road", "Awadhpuri", "Ayodhya Bypass", "Misrod", "Arera Colony", "MP Nagar", "Rohit Nagar", "Gulmohar Colony", "Shahpura", "Baghmugalia", "Jatkhedi", "Airport Road", "New Market", "Chuna Bhatti"];
 
