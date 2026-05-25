@@ -1,10 +1,12 @@
 import React from 'react'
 import HomeLayIndiaWebsite from './HomeLayIndiaWebsite'
+import BloodSync from './Bloodsync'
 
 const App = () => {
   return (
     <div>
-      <HomeLayIndiaWebsite/>
+      {/* <HomeLayIndiaWebsite/> */}
+      <BloodSync/>
     </div>
   )
 }
